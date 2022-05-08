@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter/foundation.dart';
 import 'suggestions_box_controller.dart';
 import 'text_cursor.dart';
 
@@ -337,6 +337,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         }
         _updateTextInputState(putText: putText);
       } else {
+        if (kIsWeb) {
+          _onSearchChanged(_value.normalCharactersText);
+        }
         _updateTextInputState();
       }
       _onSearchChanged(_value.normalCharactersText);
@@ -354,7 +357,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
       _value = _value.copyWith(
         text: updatedText,
         selection: TextSelection.collapsed(offset: textLength),
-        composing: (Platform.isIOS || replacedLength == textLength)
+        composing: (!kIsWeb && Platform.isIOS || replacedLength == textLength)
             ? TextRange.empty
             : TextRange(
                 start: replacedLength,
