@@ -352,7 +352,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
             "${replaceText ? '' : _value.normalCharactersText}" +
             putText;
     setState(() {
-      final textLength = updatedText.characters.length;
+      final textLength = updatedText.length;
       final replacedLength = _chips.length;
       _value = _value.copyWith(
         text: updatedText,
@@ -503,5 +503,14 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   @override
   void showToolbar() {
     // TODO: implement showToolbar
+  }
+
+  @override
+  void didChangeInputControl(
+      TextInputControl? oldControl, TextInputControl? newControl) {}
+
+  @override
+  void performSelector(String selectorName) {
+    // TODO: implement performSelector
   }
 }
