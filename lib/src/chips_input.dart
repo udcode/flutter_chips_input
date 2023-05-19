@@ -133,7 +133,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     _focusNode.addListener(_handleFocusChanged);
     _nodeAttachment = _focusNode.attach(context);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       _initOverlayEntry();
       if (mounted && widget.autofocus) {
         FocusScope.of(context).autofocus(_focusNode);
@@ -292,9 +292,9 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
 
   void _scrollToVisible() {
     Future.delayed(const Duration(milliseconds: 300), () {
-      WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
         final renderBox = context.findRenderObject() as RenderBox;
-        await Scrollable.of(context)?.position.ensureVisible(renderBox);
+        await Scrollable.of(context).position.ensureVisible(renderBox);
       });
     });
   }
@@ -441,7 +441,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
                 maxLines: 1,
                 overflow: widget.textOverflow,
                 style: widget.textStyle ??
-                    theme.textTheme.subtitle1?.copyWith(height: 1.5),
+                    theme.textTheme.titleMedium?.copyWith(height: 1.5),
               ),
             ),
             Flexible(
@@ -455,7 +455,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
 
     return NotificationListener<SizeChangedLayoutNotification>(
       onNotification: (SizeChangedLayoutNotification val) {
-        WidgetsBinding.instance?.addPostFrameCallback((_) async {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
           _suggestionsBoxController.overlayEntry?.markNeedsBuild();
         });
         return true;
@@ -512,5 +512,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   @override
   void performSelector(String selectorName) {
     // TODO: implement performSelector
+  }
+
+  @override
+  void insertContent(KeyboardInsertedContent content) {
+    // TODO: implement insertContent
   }
 }
